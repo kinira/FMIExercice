@@ -36,6 +36,9 @@ public:
     void addElem(const char &key,const int position);
     void removeElem( const char &key);
     elem *exists(const char &key);
+    elem *pop();
+    bool isEmpty();
+    int length();
 };
 
 List::~List()
@@ -99,6 +102,43 @@ elem *List::exists(const char &key)
 
     return nullptr;
 }
+
+int List::length()
+{
+    int counter = 0;
+    elem* curr = this->start;
+    while (curr)
+    {
+        counter ++;
+        curr = curr->next;
+    }
+
+    return counter;    
+}
+
+elem* List::pop()
+{
+    elem* p = this->start;
+    if (this->start->next)
+    {
+        this->start = this->start->next;
+    }
+    else
+    {
+        this->start = nullptr;
+        this->end = nullptr;
+    }
+    return p;   
+}
+
+bool List::isEmpty()
+{
+    if(!this->start && !this->end)
+        return true;
+    
+    return false;
+}
+
 int findMaxDistance(char *sentance)
 {
     int length = strlen(sentance);
@@ -123,14 +163,24 @@ int findMaxDistance(char *sentance)
     return maxDistance;
 }
 
+
+
 int main()
-{
-    elem a;
-    a.key = 's';
-
-    elem* b = &a;
-
+{  
     char *temp = "this is just an example";
-    int  t = findMaxDistance(temp);
+    // int  t = findMaxDistance(temp);
+    elem p0; 
+    p0.key = 'c';
+    p0.positions = 12;
+    List l;
+    l.addElem('c',12);
+    l.addElem('d',23);
+    l.addElem('e',1);
+    l.addElem('f',15);
+
+    int n = l.length();
+    elem* first = l.pop();
+    int n1 = l.length();
+
     return 1;
 }
